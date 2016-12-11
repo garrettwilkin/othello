@@ -1,5 +1,6 @@
 """
 A system for learning the optimal strategies for winning othello.
+
 """
 
 class Othello(object):
@@ -94,6 +95,55 @@ class Othello(object):
         p = self.identify_potential_moves()
         self.mark_cells(p)
         return
+
+    def get_direction(self, coordinate_a, coordinate_b):
+        ax, ay = coordinate_a
+        bx, by = coordinate_b
+        cx = bx - ax
+        cy = by - ay
+        direction = 'invalid'
+        if cx == 1:
+            if cy == 0:
+                direction = 'east'
+            elif cy == 1:
+                direction = 'south east'
+            elif cy == -1:
+                direction = 'north east'
+        elif cx == 0:
+            if cy == 1:
+                direction = 'south'
+            elif cy == -1:
+                direction = 'north'
+        elif cx == -1:
+            if cy == 1:
+                direction = 'south west'
+            elif cy == 0:
+                direction = 'west'
+            elif cy == -1:
+                direction = 'north west'
+        if direction == 'invalid':
+            print "Warning 001: invalid direction. Possibly bad coordinate set: [{}, {}]".format(coordinate_a, coordinate_b)
+        return direction
+
+
+
+
+    def score_potential_move(self, coordinates, opponent):
+        x_coord, y_coord = coordinates
+        adjacent_cells = self.get_adjacent_cells(x_coord, y_coord)
+        total_score = 0
+        target_tokens = set()
+
+        for ax, ay in adjacent_cells:
+            # Find an opponent cell in an adjacent cell.
+            if self.board[ax, ay] == opponent:
+                direction =
+                # Determine how many opponent tokens would be flipped
+
+        # Repeat until all opponent cells have been examined.
+        # Do not double count cells.
+
+
 
 if __name__ == '__main__':
     print "Let's learn how to play {}".format("othello.")
