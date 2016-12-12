@@ -106,9 +106,9 @@ class Othello(object):
             if cy == 0:
                 direction = 'east'
             elif cy == 1:
-                direction = 'south east'
+                direction = 'south-east'
             elif cy == -1:
-                direction = 'north east'
+                direction = 'north-east'
         elif cx == 0:
             if cy == 1:
                 direction = 'south'
@@ -116,17 +116,31 @@ class Othello(object):
                 direction = 'north'
         elif cx == -1:
             if cy == 1:
-                direction = 'south west'
+                direction = 'south-west'
             elif cy == 0:
                 direction = 'west'
             elif cy == -1:
-                direction = 'north west'
+                direction = 'north-west'
         if direction == 'invalid':
             print "Warning 001: invalid direction. Possibly bad coordinate set: [{}, {}]".format(coordinate_a, coordinate_b)
         return direction
 
 
-
+    def get_vector(self, direction):
+        """takes a direction and returns a tuple which can be used for vector addition in order to move from a
+        given point in a given direction"""
+        direction_vectors = {
+            'east': (1,0),
+            'south-east': (1,1),
+            'north-east': (1,-1),
+            'south': (0,1),
+            'north': (0,-1),
+            'south-west': (-1,1),
+            'west': (-1,0),
+            'north-west': (-1,-1)
+        }
+        # This will throw a KeyError exception direction is not one of the dictionary keys.
+        return direction_vectors['direction']
 
     def score_potential_move(self, coordinates, opponent):
         x_coord, y_coord = coordinates
